@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Arsha ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(135deg,#ffd6e0,#ff9ab3);
+    font-family:'Dancing Script',cursive;
+    color:#8b0033;
+    overflow:hidden;
+}
+
+/* Center container */
+.container{
+    width:90%;
+    max-width:420px;
+    font-size:34px;
+}
+
+/* Inputs & buttons */
+input{
+    padding:14px;
+    font-size:22px;
+    border-radius:10px;
+    border:none;
+    text-align:center;
+}
+
+button{
+    padding:16px 28px;
+    margin:10px;
+    font-size:24px;
+    border:none;
+    border-radius:30px;
+    background:#c2185b;
+    color:white;
+}
+
+/* Floating hearts */
+.heart{
+    position:fixed;
+    bottom:-40px;
+    color:#ff1a66;
+    animation:rise 7s linear infinite;
+}
+@keyframes rise{
+    from{transform:translateY(0);}
+    to{transform:translateY(-120vh);}
+}
+
+/* Red envelope */
+.envelope{
+    width:300px;
+    height:200px;
+    background:#d6003d;
+    margin:auto;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    transition:transform 0.6s;
+}
+
+.envelope.open{
+    transform:scale(1.05) rotateX(180deg);
+}
+
+/* Letter overlay */
+.letter-container{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(255,182,193,0.4);
+}
+
+/* Pink wish card */
+.card{
+    background:#ffc0cb;
+    color:#8b0033;
+    padding:35px 25px;
+    border-radius:18px;
+    font-size:34px;
+    width:85%;
+    max-width:420px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    animation:zoomIn 0.8s;
+    position:relative;
+    overflow:hidden;
+}
+
+/* Zoom animation */
+@keyframes zoomIn{
+    from{transform:scale(0.5); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+/* Pink glitter effect */
+.card::after{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.6),
+        transparent
+    );
+    transform:rotate(25deg);
+    animation:glitter 3s infinite;
+}
+
+@keyframes glitter{
+    from{transform:translateX(-100%) rotate(25deg);}
+    to{transform:translateX(100%) rotate(25deg);}
+}
+
+/* Photos */
+.photos img{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:15px;
+    margin:10px;
+    display:none;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.show{
+    display:inline-block !important;
+    animation:fadeIn 1s;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.8);}
+    to{opacity:1; transform:scale(1);}
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="main">
+    <h2>Enter Password</h2>
+    <input type="password" id="password">
+    <br><br>
+    <button onclick="checkPassword()">Open</button>
+</div>
+
+<audio id="music" loop>
+    <source src="love_story.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+// Start music on first interaction
+function startMusic(){
+    document.getElementById("music").play().catch(()=>{});
+}
+
+// Password
+function checkPassword(){
+    startMusic();
+    var pass = document.getElementById("password").value;
+    if(pass === "arshabhinav"){
+        question1();
+    }else{
+        alert("Wrong password ❤️");
+    }
+}
+
+// Question 1
+function question1(){
+    document.getElementById("main").innerHTML = `
+        <h2>I love you ❤️<br>Do you love me?</h2>
+        <button onclick="question2()">A: Yes</button>
+        <button onclick="question2()">B: A</button>
+        <button onclick="question2()">C: B</button>
+        <button onclick="question2()">D: C</button>
+    `;
+}
+
+// Question 2
+function question2(){
+    document.getElementById("main").innerHTML = `
+        <h2>Can you share your future with me? ❤️</h2>
+        <button onclick="showEnvelope()">Yes</button>
+        <button onclick="showEnvelope()">No</button>
+    `;
+}
+
+// Show envelope
+function showEnvelope(){
+    document.getElementById("main").innerHTML = `
+        <h3>Tap to open</h3>
+        <div class="envelope" id="env" onclick="openLetter()"></div>
+    `;
+}
+
+// Open envelope → letter forward
+function openLetter(){
+    document.getElementById("env").classList.add("open");
+
+    setTimeout(()=>{
+        document.body.innerHTML += `
+        <div class="letter-container">
+            <div>
+                <div class="card">
+                    Happy Valentine's Day Arsha ❤️<br><br>
+                    Forever yours,<br>
+                    Abhinav
+                </div>
+                <br>
+                <button onclick="showPhotos()">Tap to see our memories</button>
+                <div class="photos">
+                    <img id="p1" src="photo1.jpg">
+                    <img id="p2" src="photo2.jpg">
+                </div>
+            </div>
+        </div>
+        `;
+    },600);
+}
+
+// Photos one by one
+function showPhotos(){
+    document.getElementById("p1").classList.add("show");
+    setTimeout(()=>{
+        document.getElementById("p2").classList.add("show");
+    },1500);
+}
+
+// Floating hearts
+function createHeart(){
+    var heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*30 + 25) + "px";
+    heart.style.animationDuration = (Math.random()*3 + 5) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{heart.remove();},7000);
+}
+setInterval(createHeart,250);
+
+</script>
+</body>
+</html>
